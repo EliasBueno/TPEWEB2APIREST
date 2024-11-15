@@ -2,7 +2,7 @@
 
 ## Descripción
 
-API tipo REST que permite gestionar recursos de **Productos** y **Sucursales**. La API ofrece servicios CRUD completos, con opciones de Filtrado, Ordenamiento y Acciones específicas como obtener productos en oferta. No está autenticada.
+API tipo REST que permite gestionar recursos de **Productos** y **Sucursales** de una heladería. La API ofrece servicios CRUD completos, con opciones de Filtrado, Ordenamiento y Acciones específicas. No está autenticada.
 
 ## Endpoints
 
@@ -105,40 +105,12 @@ API tipo REST que permite gestionar recursos de **Productos** y **Sucursales**. 
 
 **Método**: GET
 
-- Permite filtrar los productos por valores específicos del campo `marca` (ej. "Bugatti", "BMW", etc.). Si el valor del campo `marca` no es válido, la API devolverá un error `400 Bad Request`.
+- Permite filtrar los productos por valores específicos de los campos `sabor`, `tipo`, `valor`.
 - **Código de respuesta**: 200 OK, 400 Bad Request
 
 #### URL: `http://localhost/TPE-WEB-3/api/sucursales?value=valor`
 
 **Método**: GET
 
-- Permite filtrar las sucursales por características específicas. Solo se permite filtrar por características válidas.
+- Permite filtrar las sucursales por características específicas, como `nombre` o `ubicacion`.
 - **Código de respuesta**: 200 OK, 400 Bad Request
-
-## Estructura de los recursos
-
-### Productos:
-
-- `id_producto`, `nombre`, `anio`, `motor`, `marca`, `id_categoria`, `caracteristicas`.
-
-### Sucursales:
-
-- `id_sucursal`, `nombre`, `direccion`, `caracteristicas`.
-
-### Valores del campo **Marca** del recurso Productos:
-
-- Bugatti, BMW, Renault, Ferrari, Lamborghini.
-
-### Palabras clave del campo **Características** del recurso Sucursales:
-
-- `mejor`, `aceleracion`.
-
-## Notas adicionales
-
-- La API no requiere autenticación.
-- Las respuestas de la API son siempre en formato JSON.
-- Las solicitudes deben incluir los parámetros correctos; de lo contrario, la API devolverá un error `400 Bad Request`.
-
-## Repositorio GitHub
-
-[https://github.com/EliasBueno/TPEWEB2APIREST.git](https://github.com/EliasBueno/TPEWEB2APIREST.git)
