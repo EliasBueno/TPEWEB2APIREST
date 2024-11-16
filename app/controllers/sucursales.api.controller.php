@@ -1,7 +1,7 @@
 <?php
 
 require_once "./app/models/sucursales.api.model.php";
-require_once "./app/views/motor.api.view.php";
+require_once "./app/views/api.view.php";
 
 class sucursalesapicontroller {
 
@@ -45,7 +45,7 @@ class sucursalesapicontroller {
         $sucursales = $this->model->getAll($page, $perPage, $sort, $order);
 
         // Responder con las sucursales ordenadas
-        (new MotorApiView())->response($sucursales, 200);
+        (new ApiView())->response($sucursales, 200);
     }
 
     // Método para obtener una sucursal por su ID
@@ -56,10 +56,10 @@ class sucursalesapicontroller {
 
         if ($sucursal) {
             // Responder con la sucursal encontrada
-            (new MotorApiView())->response($sucursal, 200);
+            (new ApiView())->response($sucursal, 200);
         } else {
             // Responder con un error si no se encuentra la sucursal
-            (new MotorApiView())->response(['error' => 'Sucursal no encontrada'], 404);
+            (new ApiView())->response(['error' => 'Sucursal no encontrada'], 404);
         }
     }
 
@@ -79,18 +79,18 @@ class sucursalesapicontroller {
     
                 if ($sucursal) {
                     // Responder con la sucursal completa (nombre, ubicacion, imagen, id, etc.)
-                    (new MotorApiView())->response($sucursal, 201);
+                    (new ApiView())->response($sucursal, 201);
                 } else {
                     // Responder con un error si no se pudo recuperar la sucursal creada
-                    (new MotorApiView())->response(['error' => 'Error al recuperar los datos de la sucursal'], 500);
+                    (new ApiView())->response(['error' => 'Error al recuperar los datos de la sucursal'], 500);
                 }
             } else {
                 // Responder con un error si no se pudo agregar la sucursal
-                (new MotorApiView())->response(['error' => 'Error al agregar la sucursal'], 500);
+                (new ApiView())->response(['error' => 'Error al agregar la sucursal'], 500);
             }
         } else {
             // Responder con un error si los datos están incompletos
-            (new MotorApiView())->response(['error' => 'Datos inválidos. Se requiere nombre, ubicación e imagen.'], 400);
+            (new ApiView())->response(['error' => 'Datos inválidos. Se requiere nombre, ubicación e imagen.'], 400);
         }
     }
     
@@ -113,14 +113,14 @@ class sucursalesapicontroller {
     
             if ($sucursal) {
                 // Responder con los detalles de la sucursal actualizada
-                (new MotorApiView())->response($sucursal, 200);
+                (new ApiView())->response($sucursal, 200);
             } else {
                 // Si no se puede recuperar la sucursal después de la actualización
-                (new MotorApiView())->response(['error' => 'Error al recuperar los datos actualizados de la sucursal'], 500);
+                (new ApiView())->response(['error' => 'Error al recuperar los datos actualizados de la sucursal'], 500);
             }
         } else {
             // Responder con un error si los datos son inválidos o faltantes
-            (new MotorApiView())->response(['error' => 'Datos inválidos. Se requiere nombre, ubicación e imagen.'], 400);
+            (new ApiView())->response(['error' => 'Datos inválidos. Se requiere nombre, ubicación e imagen.'], 400);
         }
     }
     
@@ -139,10 +139,10 @@ class sucursalesapicontroller {
             $this->model->delete($id);
 
             // Responder con éxito
-            (new MotorApiView())->response(['message' => 'Sucursal eliminada'], 200);
+            (new ApiView())->response(['message' => 'Sucursal eliminada'], 200);
         } else {
             // Responder con un error si la sucursal no existe
-            (new MotorApiView())->response(['error' => 'Sucursal no encontrada'], 404);
+            (new ApiView())->response(['error' => 'Sucursal no encontrada'], 404);
         }
     }
     

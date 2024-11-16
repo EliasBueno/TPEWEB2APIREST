@@ -1,6 +1,6 @@
 <?php
 
-class MotorApiView {
+class ApiView {
 
     // Responde con datos en formato JSON y un código de estado HTTP.
     public function response($data, $status = 200) {

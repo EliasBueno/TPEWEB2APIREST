@@ -1,6 +1,6 @@
 <?php
 require_once "./app/models/productos.api.model.php";
-require_once "./app/views/motor.api.view.php";
+require_once "./app/views/api.view.php";
 class ProductosAController {
 
     private $model;
@@ -43,7 +43,7 @@ class ProductosAController {
         $productos = $this->model->getAll($page, $perPage, $sort, $order);
     
         // Responder con los productos ordenados
-        (new MotorApiView())->response($productos, 200);
+        (new ApiView())->response($productos, 200);
     }
     
 
@@ -52,19 +52,19 @@ class ProductosAController {
         if (isset($params[':ID']) && !empty($params[':ID'])) {
             $producto = $this->model->getById($params[':ID']);
             if ($producto) {
-                (new MotorApiView())->response($producto, 200);
+                (new ApiView())->response($producto, 200);
             } else {
-                (new MotorApiView())->response(['message' => 'Producto no encontrado'], 404);
+                (new ApiView())->response(['message' => 'Producto no encontrado'], 404);
             }
         } else {
-            (new MotorApiView())->response(['message' => 'ID inválido'], 400);
+            (new ApiView())->response(['message' => 'ID inválido'], 400);
         }
     }
 
     // Obtener productos en oferta
     public function getProductosEnOferta($params) {
         $productos = $this->model->getAllByOferta(1); // 1 significa que está en oferta
-        (new MotorApiView())->response($productos, 200);
+        (new ApiView())->response($productos, 200);
     }
 
     // Filtrar productos
@@ -89,7 +89,7 @@ class ProductosAController {
         $productos = $this->model->getProductosFiltrados($filters);
     
         // Devolver la respuesta con los productos filtrados
-        (new MotorApiView())->response($productos, 200);
+        (new ApiView())->response($productos, 200);
     }
 
     // Agregar un producto
@@ -102,9 +102,9 @@ class ProductosAController {
             $enOferta = isset($body->en_oferta) ? $body->en_oferta : 0; // Si no se pasa en_oferta, por defecto será 0
 
             $id = $this->model->add($nombre, $descripcion, $precio, $enOferta);
-            (new MotorApiView())->response(['id_producto' => $id], 201);
+            (new ApiView())->response(['id_producto' => $id], 201);
         } else {
-            (new MotorApiView())->response(['message' => 'Datos incompletos'], 400);
+            (new ApiView())->response(['message' => 'Datos incompletos'], 400);
         }
     }
 
@@ -112,9 +112,9 @@ class ProductosAController {
     public function deleteProducto($params) {
         if (isset($params[':ID']) && !empty($params[':ID'])) {
             $this->model->delete($params[':ID']);
-            (new MotorApiView())->response(['message' => 'Producto eliminado'], 200);
+            (new ApiView())->response(['message' => 'Producto eliminado'], 200);
         } else {
-            (new MotorApiView())->response(['message' => 'ID inválido'], 400);
+            (new ApiView())->response(['message' => 'ID inválido'], 400);
         }
     }
 
@@ -128,9 +128,9 @@ class ProductosAController {
             $enOferta = isset($body->en_oferta) ? $body->en_oferta : 0;
 
             $this->model->edit($params[':ID'], $nombre, $descripcion, $precio, $enOferta);
-            (new MotorApiView())->response(['message' => 'Producto actualizado'], 200);
+            (new ApiView())->response(['message' => 'Producto actualizado'], 200);
         } else {
-            (new MotorApiView())->response(['message' => 'Datos incompletos'], 400);
+            (new ApiView())->response(['message' => 'Datos incompletos'], 400);
         }
     }
 }
